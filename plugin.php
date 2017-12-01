@@ -23,7 +23,31 @@ You should have received a copy of the GNU General Public License
 along with sfa-TalentLMS-Integration. If not, see https://www.gnu.org/licenses/gpl-2.0.html.
 */
 
+include 'api-calls.php'
+include 'options.php'
 
+// User registration hook
+function on_user_registration(){
+    // Register user in TalentLMS
+    // Use functions of api-calls.php
+    
+}
+
+// Activation hook
+function init(){
+    // Read options
+    // Init Button 'go to TalentLMS'
+}
+
+// Deactivation hook
+function deactivatePlugin(){
+    // Hide button
+}
+
+// Deinstallation hook
+function deinstallPlugin(){
+    // Delete all the things
+}
 
 
  function initAPI(){

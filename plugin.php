@@ -24,7 +24,6 @@ along with sfa-TalentLMS-Integration. If not, see https://www.gnu.org/licenses/g
 */
 
 require_once(__FILE__, 'api-calls.php');
-require_once(__FILE__, 'options.php');
 
 // User registration hook
 function on_user_registration(){
@@ -32,6 +31,7 @@ function on_user_registration(){
     // Use functions of api-calls.php
     
 }
+add_action( 'user_register', 'on_user_registration', 10, 1 );
 
 // Activation hook
 function init(){

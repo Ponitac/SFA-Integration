@@ -24,7 +24,7 @@ along with sfa-TalentLMS-Integration. If not, see https://www.gnu.org/licenses/g
 */
 
 
-require_once(dirname(__FILE__).'api-calls.php'); // Require API call library
+require_once(dirname(__FILE__).'/api-calls.php'); // Require API call library
 require_once(dirname(__FILE__).'/TalentLMSLib/lib/TalentLMS.php'); // Require TLMS Library
 
 // User registration hook

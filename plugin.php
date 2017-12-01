@@ -28,6 +28,8 @@ along with sfa-TalentLMS-Integration. If not, see https://www.gnu.org/licenses/g
 
  function initAPI(){
 
+    $configuration = parse_ini_file('config.ini');
+
     ini_set('display_errors', false);
 
     header('Content-Type: text/html; charset=utf-8');
@@ -37,8 +39,8 @@ along with sfa-TalentLMS-Integration. If not, see https://www.gnu.org/licenses/g
     try{
 
         //Initiate API
-        TalentLMS::setApiKey('YIKUQdyDwdzRYuy5pxJB2uAIQCMqTq');
-        TalentLMS::setDomain('courses.socialfinanceacademy.org');
+        TalentLMS::setApiKey($configuration[key]);
+        TalentLMS::setDomain($configuration[domain]);
 
         //Get Users
         $users = TalentLMS_User::all();

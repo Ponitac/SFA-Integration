@@ -57,7 +57,7 @@ function registerUserAPICall($user_info){
 function redirectToTLMS($userID){
 
     // call TLMS API
-    $returnSet = TalentLMS_User::retrieve({$userID}
+    $returnSet = TalentLMS_User::retrieve({$userID});
 
     // Retrieve login key from return JSON
     $loginKey = $returnSet['login_key'];

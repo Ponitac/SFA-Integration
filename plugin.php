@@ -23,20 +23,39 @@ You should have received a copy of the GNU General Public License
 along with sfa-TalentLMS-Integration. If not, see https://www.gnu.org/licenses/gpl-2.0.html.
 */
 
-require_once(__FILE__, 'api-calls.php');
+
+require_once(dirname(__FILE__).'api-calls.php'); // Require API call library
+require_once(dirname(__FILE__).'/TalentLMSLib/lib/TalentLMS.php'); // Require TLMS Library
 
 // User registration hook
-function on_user_registration(){
+function registerUserOnTLMS($user_login, $user){
     // Register user in TalentLMS
     // Use functions of api-calls.php
+    prepareUserRegistration($user);
     
 }
-add_action( 'user_register', 'on_user_registration', 10, 1 );
+add_action('wp_login', 'registerUserOnTLMS', 10, 2);
 
 // Activation hook
 function init(){
     // Read options
+    header('Content-Type: text/html; charset=utf-8');
+    
+    // ini_set('display_errors', false);
+    
+    $configuration = parse_ini_file('config.ini'); // Read config
+    
+    try{
+        //Initiate API            
+        TalentLMS::setApiKey($configuration[key]);
+        TalentLMS::setDomain($configuration[domain]);
+    }
+    catch(Exception $e){
+        echo $e->getMessage();
+    }
+
     // Init Button 'go to TalentLMS'
+    
 }
 
 // Deactivation hook
@@ -48,7 +67,6 @@ function deactivatePlugin(){
 function deinstallPlugin(){
     // Delete all the things
 }
-
 
  function initAPI(){
 
@@ -88,3 +106,4 @@ function debug_to_console( $data ) {
 }
 
 register_activation_hook(__FILE__, 'initAPI' );
+?>

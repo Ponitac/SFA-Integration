@@ -23,8 +23,8 @@ You should have received a copy of the GNU General Public License
 along with sfa-TalentLMS-Integration. If not, see https://www.gnu.org/licenses/gpl-2.0.html.
 */
 
-include 'api-calls.php'
-include 'options.php'
+require_once(__FILE__, 'api-calls.php');
+require_once(__FILE__, 'options.php');
 
 // User registration hook
 function on_user_registration(){

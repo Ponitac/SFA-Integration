@@ -23,9 +23,46 @@ You should have received a copy of the GNU General Public License
 along with sfa-TalentLMS-Integration. If not, see https://www.gnu.org/licenses/gpl-2.0.html.
 */
 
-
 require_once(dirname(__FILE__).'api-calls.php'); // Require API call library
 require_once(dirname(__FILE__).'/TalentLMSLib/lib/TalentLMS.php'); // Require TLMS Library
+global $tLMS_db_version;
+$tLMS_db_version = '1.0';
+
+function createDatabase() {
+    global $wpdb;
+    global $tLMS_db_version;
+
+    $table_name = $wpdb->prefix . 'sfatLMS';
+
+    $charset_collate = $wpdb->get_charset_collate();
+    $sql = "CREATE  TABLE $table_name (id mediumint(9) NOT NULL AUTO_INCREMENT,
+    mail text NOT NULL,
+    PRIMARY KEY (id)
+    ) $charset_collate;";
+
+    require_once( ABSPATH . 'wp-admin/includes/upgrade.php');
+    dbDelta( $sql );
+    add_option( 'tLMS_db_version', $tLMS_db_version );
+}
+
+function updateDB($talentLMSUser){
+    global $wpdb;
+    $table_name = $wpdb->prefix . 'sfatLMS';
+
+    if (is_array($talentLMSUser)) {
+        foreach ($talentLMSUser as $User) {
+            $wpdb->insert(
+                $table_name,
+                array('mail' => $user['email]')
+            )
+        }
+    }
+    
+    
+}
+
+
+
 
 // User registration hook
 function registerUserOnTLMS($user_login, $user){
@@ -102,6 +139,7 @@ function debug_to_console( $data ) {
 
     echo "<script>console.log( 'Debug Objects: " . $output . "' );</script>";
 }
+
 
 register_activation_hook(__FILE__, 'initAPI' );
 ?>

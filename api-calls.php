@@ -23,10 +23,10 @@ function prepareUserRegistration($user){
 function registerUserAPICall($user_info){
     
     // Pull necessary user data from user_info object
-    $userFirstName = $user_info->first_name
-    $userLastName = $user_info->last_name
-    $userEmail = $user_info->user_email
-    $userLoginName = $user_info->user_login
+    $userFirstName = $user_info->first_name;
+    $userLastName = $user_info->last_name;
+    $userEmail = $user_info->user_email;
+    $userLoginName = $user_info->user_login;
 
     $userPassword = generateTLMSPassword($user_info->user_pass); // Generate the password to be used on the TLMS side
     

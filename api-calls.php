@@ -23,10 +23,10 @@ function prepareUserRegistration($user){
 function registerUserAPICall($user_info){
     
     // Pull necessary user data from user_info object
-    $userFirstName = $user_info->first_name
-    $userLastName = $user_info->last_name
-    $userEmail = $user_info->user_email
-    $userLoginName = $user_info->user_login
+    $userFirstName = $user_info->first_name;
+    $userLastName = $user_info->last_name;
+    $userEmail = $user_info->user_email;
+    $userLoginName = $user_info->user_login;
 
     $userPassword = generateTLMSPassword($user_info->user_pass); // Generate the password to be used on the TLMS side
     
@@ -36,7 +36,7 @@ function registerUserAPICall($user_info){
             'last_name' => $userLastName,
             'email' => $userEmail, 
             'login' => $userLoginName, 
-            'password' => $userPassword)); 
+            'password' => $userPassword));
             
         /* $tlms_userID = $return['id'];
         $tlms_login = $return['login'];
@@ -48,6 +48,7 @@ function registerUserAPICall($user_info){
     } catch (TalentLMS_ApiError $e){
         // echo $e->getMessage();
         $httpStatus = $e.getHTTPStatus();
+        error_log($httpStatus);
         // Do stuff that figures shit out
     }
 }
@@ -56,7 +57,7 @@ function registerUserAPICall($user_info){
 function redirectToTLMS($userID){
 
     // call TLMS API
-    $returnSet = TalentLMS_User::retrieve({$userID}
+    $returnSet = TalentLMS_User::retrieve({$userID});
 
     // Retrieve login key from return JSON
     $loginKey = $returnSet['login_key'];

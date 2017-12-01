@@ -23,7 +23,8 @@ You should have received a copy of the GNU General Public License
 along with sfa-TalentLMS-Integration. If not, see https://www.gnu.org/licenses/gpl-2.0.html.
 */
 
-require_once(dirname(__FILE__).'api-calls.php'); // Require API call library
+
+require_once(dirname(__FILE__).'/api-calls.php'); // Require API call library
 require_once(dirname(__FILE__).'/TalentLMSLib/lib/TalentLMS.php'); // Require TLMS Library
 global $tLMS_db_version;
 $tLMS_db_version = '1.0';

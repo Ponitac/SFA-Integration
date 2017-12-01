@@ -2,7 +2,7 @@
 
 
 /*  Generates a password to be used for registering a new user on TalentLMS
-    
+
  */
 function generateTLMSPassword($encryptedUserPass){
     $newPassword = "";
@@ -17,10 +17,19 @@ function generateTLMSPassword($encryptedUserPass){
     Returns true if the user is already registered
     Returns false if the user is not yet registered
 */
-function isUserOnTLMS($userId){
+function isUserOnTLMS($userEmail){
     $userIsOnTLMS = FALSE;
 
-    // Check Wordpress database extension for the respective entry.
+    try{
+        $response = TalentLMS_User::retrieve(array('email' => $userEmail));
+        if(!empty($respone['login_key'])){        
+            $userIsOnTLMS = TRUE;
+        }
+    } catch (Exception $e){
+        echo $e->getMessage();
+    }
+    
+    // Alternatively: Check Wordpress database extension for the respective entry.
 
     return $userIsOnTLMS;
 }

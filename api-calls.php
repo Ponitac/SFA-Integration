@@ -36,7 +36,7 @@ function registerUserAPICall($user_info){
             'last_name' => $userLastName,
             'email' => $userEmail, 
             'login' => $userLoginName, 
-            'password' => $userPassword)); 
+            'password' => $userPassword));
             
         /* $tlms_userID = $return['id'];
         $tlms_login = $return['login'];
@@ -48,6 +48,7 @@ function registerUserAPICall($user_info){
     } catch (TalentLMS_ApiError $e){
         // echo $e->getMessage();
         $httpStatus = $e.getHTTPStatus();
+        error_log($httpStatus);
         // Do stuff that figures shit out
     }
 }

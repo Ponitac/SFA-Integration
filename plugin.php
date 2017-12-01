@@ -76,8 +76,6 @@ function deinstallPlugin(){
 
     header('Content-Type: text/html; charset=utf-8');
 
-    require_once(dirname(__FILE__).'/TalentLMSLib/lib/TalentLMS.php');
-
     try{
 
         //Initiate API

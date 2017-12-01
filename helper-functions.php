@@ -8,9 +8,14 @@ function generateTLMSPassword($encryptedUserPass){
     $newPassword = "";
     
     // Generate a freaking password lmao
-    $newPassword = "1234678" //TO BE REPLACED, obviously
+    $newPassword = "1234678"; //TO BE REPLACED, obviously
 
     return $newPassword;
+}
+
+function do_alert($msg)
+{
+    echo '<script type="text/javascript">alert("' . $msg . '"); </script>';
 }
 
 /*  Checks if the user is already registered on TalentLMS 
@@ -21,7 +26,9 @@ function isUserOnTLMS($userEmail){
     $userIsOnTLMS = FALSE;
 
     try{
-        $response = TalentLMS_User::retrieve(array('email' => $userEmail));
+        $response = 
+            TalentLMS_User::retrieve(array('email' => $userEmail));
+        
         if(!empty($respone['login_key'])){        
             $userIsOnTLMS = TRUE;
         }

@@ -26,11 +26,17 @@ along with sfa-TalentLMS-Integration. If not, see https://www.gnu.org/licenses/g
 
 require_once(dirname(__FILE__).'/api-calls.php'); // Require API call library
 require_once(dirname(__FILE__).'/TalentLMSLib/lib/TalentLMS.php'); // Require TLMS Library
+require_once(dirname(__FILE__).'/sfa-options.php'); // Require options menu for setting api key / domain
 
 // User registration hook
 function registerUserOnTLMS($user_login, $user){
     // Register user in TalentLMS
     // Use functions of api-calls.php
+    
+    $configuration = parse_ini_file('config.ini'); // Read config
+    //Initiate API
+    TalentLMS::setApiKey($configuration[key]);
+    TalentLMS::setDomain($configuration[domain]);
     prepareUserRegistration($user);
     
 }
@@ -103,5 +109,7 @@ function debug_to_console( $data ) {
     echo "<script>console.log( 'Debug Objects: " . $output . "' );</script>";
 }
 
+
 register_activation_hook(__FILE__, 'initAPI' );
+
 ?>

@@ -3,33 +3,34 @@
     This file contains all functionality regarding outgoing and incoming API activity between SFA Wordpress and TalentLMS
 */
 
-require_once(dirname(__FILE__).'helper-functions.php');
+require_once(dirname(__FILE__).'/helper-functions.php');
     
 function prepareUserRegistration($user){
-    
+       
     // Check if user is already registered on TalentLMS 
-    if(isUserOnTLMS($user)){
+    if(isUserOnTLMS($user->user_email)){
         // If user is already registered on TalentLMS, no registration is necessary.
         // Obviously...
 
     } else {
         // If user is not registered on talentLMS, setup user data and register him
-        $user_info = get_userdata($user.get('id')); // Get user info object to retrieve attributes
-        registerUserAPICall($user_info);
+        registerUserAPICall($user);
     }
 }
 
 // Takes in a user_info object and registers that user on TalentLMS
-function registerUserAPICall($user_info){
+function registerUserAPICall($user){
     
     // Pull necessary user data from user_info object
-    $userFirstName = $user_info->first_name;
-    $userLastName = $user_info->last_name;
-    $userEmail = $user_info->user_email;
-    $userLoginName = $user_info->user_login;
+    $userFirstName = $user->first_name;
+    $userLastName = $user->last_name;
+    $userEmail = $user->user_email;
+    $userLoginName = $user->user_login;
 
-    $userPassword = generateTLMSPassword($user_info->user_pass); // Generate the password to be used on the TLMS side
+    $userPassword = generateTLMSPassword($user->user_pass); // Generate the password to be used on the TLMS side
     
+    do_alert($userFirstName);
+
     try{
         $return = TalentLMS_User::signup(array(
             'first_name' => $userFirstName,
@@ -37,6 +38,8 @@ function registerUserAPICall($user_info){
             'email' => $userEmail, 
             'login' => $userLoginName, 
             'password' => $userPassword));
+
+        
             
         /* $tlms_userID = $return['id'];
         $tlms_login = $return['login'];
@@ -45,10 +48,9 @@ function registerUserAPICall($user_info){
         $tlms_email = $return['email'];
         $tlms_loginKey = $return['loginKey']; */
 
-    } catch (TalentLMS_ApiError $e){
-        // echo $e->getMessage();
-        $httpStatus = $e.getHTTPStatus();
-        error_log($httpStatus);
+    } catch (Exception $e){
+        error_log($e->getMessage());
+        error_log($e->getHttpStatus());
         // Do stuff that figures shit out
     }
 }
@@ -57,13 +59,13 @@ function registerUserAPICall($user_info){
 function redirectToTLMS($userID){
 
     // call TLMS API
-    $returnSet = TalentLMS_User::retrieve({$userID});
+    $returnSet = TalentLMS_User::retrieve($userID);
 
     // Retrieve login key from return JSON
     $loginKey = $returnSet['login_key'];
 
     // Build returnURL
-    $returnUrl = "https://beta.social-finance-academy.org/"
+    $returnUrl = "https://beta.social-finance-academy.org/";
 
     // Redirect user to TLMS
     redirect($loginKey);

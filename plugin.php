@@ -45,13 +45,10 @@ along with sfa-TalentLMS-Integration. If not, see https://www.gnu.org/licenses/g
         //Get Users
         $users = TalentLMS_User::all();
 
-
-
         foreach($users as $user){
             if ($user['first_name']=='Matteo')  error_log($user['first_name'], 0);
         }
 
-    
     }
     catch(Exception $e){
         echo $e->getMessage();
@@ -64,8 +61,6 @@ function debug_to_console( $data ) {
         $output = implode( ',', $output);
 
     echo "<script>console.log( 'Debug Objects: " . $output . "' );</script>";
-} 
-
+}
 
 register_activation_hook(__FILE__, 'initAPI' );
-

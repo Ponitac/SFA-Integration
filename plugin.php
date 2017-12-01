@@ -69,39 +69,3 @@ function debug_to_console( $data ) {
 
 register_activation_hook(__FILE__, 'initAPI' );
 
-
-/* function initAPI(){
-
-    ini_set('display_errors', false);
-    
-        header('Content-Type: text/html; charset=utf-8');
-    
-        require_once(dirname(__FILE__).'/TalentLMSLib/lib/TalentLMS.php');
-
-try{
-    TalentLMS::setApiKey('YIKUQdyDwdzRYuy5pxJB2uAIQCMqTq');
-    TalentLMS::setDomain('courses.socialfinanceacademy.org');
-
-    $branches = TalentLMS_Branch::all();
-
-    foreach($branches as $branch){
-        $currentBranch = TalentLMS_Branch::retrieve($branch['id']);
-        $users = $currentBranch['users'];
-        if(count($users) > 0){
-            echo  'Users  of  branch  <b>'.$currentBranch['name'].'</b>are:<br/>';
-            echo '<ul>';
-            foreach($users as $user){
-                echo '<li>'.$user['name'].'</li>';
-            }
-            echo '</ul>';
-}
-}
-}
-catch(Exception $e){
-echo $e->getMessage();
-}
-
-
-}
-?>
- */

@@ -28,7 +28,7 @@ require_once(dirname(__FILE__).'/api-calls.php'); // Require API call library
 require_once(dirname(__FILE__).'/TalentLMSLib/lib/TalentLMS.php'); // Require TLMS Library
 require_once(dirname(__FILE__).'/sfa-options.php'); // Require options menu for setting api key / domain
 
-global $tLMS_db_version;
+/* global $tLMS_db_version;
 $tLMS_db_version = '1.0';
 
 function createDatabase() {
@@ -56,10 +56,19 @@ function updateDB($talentLMSUser){
         foreach ($talentLMSUser as $User) {
             $wpdb->insert(
                 $table_name,
-                array('mail' => $user['email]')
+                array('mail' => $user['email'])
             )
         }
     }
+} */
+
+
+add_filter( 'wp_nav_menu_items', 'your_custom_menu_item', 10, 2 );
+function your_custom_menu_item ( $items, $args ) {
+    if (is_single() && $args->theme_location == 'Footer') {
+        $items .= '<li>Show whatever</li>';
+    }
+    return $items;
 }
 
 
@@ -112,6 +121,8 @@ function deinstallPlugin(){
 }
 
  function initAPI(){
+
+    apply_filters( 'wp_nav_menu_items', 2, 10 );
 
     $configuration = parse_ini_file('config.ini');
 

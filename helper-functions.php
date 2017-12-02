@@ -8,7 +8,7 @@ function generateTLMSPassword($encryptedUserPass){
     $newPassword = "";
     
     // Generate a freaking password lmao
-    $newPassword = "1234678"; //TO BE REPLACED, obviously
+    $newPassword = wp_generate_password( 8, false);
 
     return $newPassword;
 }

@@ -1,8 +1,8 @@
 <?php
 /*
 Plugin Name:  sfa-TalentLMS-Integration
-Description:  Plugin to implement the TalentLMS API and connects wp-User to their Talent-LMS accounts.
-Version:      0.1
+Description:  This plugin integrates the TalentLMS API Library and enables WordPress to automatically register and login WordPress users on TalentLMS
+Version:      0.9
 Author:       Matteo Ramin, Jan-Ulrich Holtgrave
 Author URI:   https://github.com/ponitac
 License:      GPL2
@@ -24,26 +24,35 @@ along with sfa-TalentLMS-Integration. If not, see https://www.gnu.org/licenses/g
 */
 
 header('Content-Type: text/html; charset=utf-8');
-require_once(dirname(__FILE__).'/api-calls.php'); // Require API call library
 require_once(dirname(__FILE__).'/TalentLMSLib/lib/TalentLMS.php'); // Require TLMS Library
-require_once(dirname(__FILE__).'/sfa-options.php'); // Require options menu for setting api key / domain
+require_once(dirname(__FILE__).'/api-calls.php'); // Require functions for API calls
+require_once(dirname(__FILE__).'/sfa-options.php'); // Require options menu for setting the API key and TLMS domain
 
-// User registration hook
+/**
+ * Entry point for registering the logged in user on TLMS
+ * 
+ * Is triggered by the wp_login hook
+ * 
+ * A more elegant way to do this would be right after registration, but the post-registration hook we found 
+ * was not able to give all the parameters necessary for registration (login name, first name, last name, mail)
+ */
 function registerUserOnTLMS($user_login, $user){
-        TalentLMS::setApiKey(getAPIKEY());
-        TalentLMS::setDomain(getDomain());
-        prepareUserRegistration($user);
+        TalentLMS::setApiKey(getAPIKEY()); // Set the API key according to the options
+        TalentLMS::setDomain(getDomain()); // Set the domain accoding to the options
+        prepareUserRegistration($user); // Trigger user registration. $user is given by the wp_login hook
 }
 add_action('wp_login', 'registerUserOnTLMS', 10, 2);
 
-// Activation hook
+/**
+ * Initiates the plugin, 
+ * i.e. sets up the database extension and sets API key and TLMS domain
+ */
 function init(){
-    // TODO: Read options
     header('Content-Type: text/html; charset=utf-8');
-    initDatabase();
+    initDatabase(); // Create database if not already existant
     
     try{
-        //Initiate API    
+        //Initiate API
         TalentLMS::setApiKey(getAPIKEY());
         TalentLMS::setDomain(getDomain());
     }

@@ -66,12 +66,12 @@ function updateDB($talentLMSUser){
 function registerUserOnTLMS($user_login, $user){
     // Register user in TalentLMS
     // Use functions of api-calls.php
-    
-    $configuration = parse_ini_file('config.ini'); // Read config
-    //Initiate API
-    TalentLMS::setApiKey($configuration[key]);
-    TalentLMS::setDomain($configuration[domain]);
-    prepareUserRegistration($user);
+    if (get_option( 'sfa_domain') && get_option( 'sfa_key')) {
+        TalentLMS::setApiKey(get_option( 'sfa_key'));
+        TalentLMS::setDomain(get_option( 'sfa_domain'));
+        prepareUserRegistration($user);
+    }
+
     
 }
 add_action('wp_login', 'registerUserOnTLMS', 10, 2);
@@ -137,13 +137,6 @@ function deinstallPlugin(){
     }
 }    
 
-function debug_to_console( $data ) {
-    $output = $data;
-    if ( is_array( $output ) )
-        $output = implode( ',', $output);
-
-    echo "<script>console.log( 'Debug Objects: " . $output . "' );</script>";
-}
 
 
 register_activation_hook(__FILE__, 'initAPI' );

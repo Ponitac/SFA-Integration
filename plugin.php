@@ -23,76 +23,37 @@ You should have received a copy of the GNU General Public License
 along with sfa-TalentLMS-Integration. If not, see https://www.gnu.org/licenses/gpl-2.0.html.
 */
 
-
+header('Content-Type: text/html; charset=utf-8');
 require_once(dirname(__FILE__).'/api-calls.php'); // Require API call library
 require_once(dirname(__FILE__).'/TalentLMSLib/lib/TalentLMS.php'); // Require TLMS Library
 require_once(dirname(__FILE__).'/sfa-options.php'); // Require options menu for setting api key / domain
-
-/* global $tLMS_db_version;
-$tLMS_db_version = '1.0';
-
-function createDatabase() {
-    global $wpdb;
-    global $tLMS_db_version;
-
-    $table_name = $wpdb->prefix . 'sfatLMS';
-
-    $charset_collate = $wpdb->get_charset_collate();
-    $sql = "CREATE  TABLE $table_name (id mediumint(9) NOT NULL AUTO_INCREMENT,
-    mail text NOT NULL,
-    PRIMARY KEY (id)
-    ) $charset_collate;";
-
-    require_once( ABSPATH . 'wp-admin/includes/upgrade.php');
-    dbDelta( $sql );
-    add_option( 'tLMS_db_version', $tLMS_db_version );
-}
-
-function updateDB($talentLMSUser){
-    global $wpdb;
-    $table_name = $wpdb->prefix . 'sfatLMS';
-
-    if (is_array($talentLMSUser)) {
-        foreach ($talentLMSUser as $User) {
-            $wpdb->insert(
-                $table_name,
-                array('mail' => $user['email'])
-            )
-        }
-    }
-} */
 
 // User registration hook
 function registerUserOnTLMS($user_login, $user){
     // Register user in TalentLMS
     // Use functions of api-calls.php
-    error_log(get_option('sfa_domain'));
-    error_log(get_option( 'sfa_key'));
-    if (get_option( 'sfa_domain')) {
-        TalentLMS::setDomain(get_option( 'sfa_domain'));
-        TalentLMS::setApiKey(get_option( 'sfa_key'));
-        prepareUserRegistration($user);    
-    }else{
-        error_log("Error in API Set");
-    }
-
-    
+    //if (get_option( 'sfa_domain') && get_option( 'sfa_key')) {
+        //TalentLMS::setApiKey(get_option( 'sfa_key'));
+        //TalentLMS::setDomain(get_option( 'sfa_domain'));
+        TalentLMS::setApiKey('YIKUQdyDwdzRYuy5pxJB2uAIQCMqTq');
+        TalentLMS::setDomain('courses.socialfinanceacademy.org');
+        prepareUserRegistration($user);
+    //}    
 }
 add_action('wp_login', 'registerUserOnTLMS', 10, 2);
 
 // Activation hook
 function init(){
-    // Read options
+    // TODO: Read options
     header('Content-Type: text/html; charset=utf-8');
     
-    // ini_set('display_errors', false);
-    
+    // ini_set('display_errors', false);    
     $configuration = parse_ini_file('config.ini'); // Read config
     
     try{
         //Initiate API    
-        TalentLMS::setApiKey($configuration[key]);
-        TalentLMS::setDomain($configuration[domain]);
+        TalentLMS::setApiKey('YIKUQdyDwdzRYuy5pxJB2uAIQCMqTq');
+        TalentLMS::setDomain('courses.socialfinanceacademy.org');
     }
     catch(Exception $e){
         echo $e->getMessage();
@@ -112,50 +73,6 @@ function deinstallPlugin(){
     // Delete all the things
 }
 
- function initAPI(){
-
-    	
-    add_filter( 'wp_get_nav_menu_items', 'custom_nav_menu_items2', 20, 2 );
-
-    $configuration = parse_ini_file('config.ini');
-
-    ini_set('display_errors', false);
-
-    header('Content-Type: text/html; charset=utf-8');
-
-    try{
-
-        //Initiate API
-        TalentLMS::setApiKey($configuration[key]);
-        TalentLMS::setDomain($configuration[domain]);
-
-        //Get Users
-        $users = TalentLMS_User::all();
-
-        foreach($users as $user){
-            if ($user['first_name']=='Matteo')  error_log($user['first_name'], 0);
-        }
-
-    }
-    catch(Exception $e){
-        echo $e->getMessage();
-    }
-}    
-
-
-function custom_nav_menu_items2( $items, $menu ) {
-  if ( $menu->slug == 'main_menu' ) {
-    $top = _custom_nav_menu_item( 'Top level', '/some-url', 100 );
-
-    $items[] = $top;
-    $items[] = _custom_nav_menu_item( 'First Child', '/some-url', 101, $top->ID );
-    $items[] = _custom_nav_menu_item( 'Third Child', '/some-url', 103, $top->ID );
-    $items[] = _custom_nav_menu_item( 'Second Child', '/some-url', 102, $top->ID );
-  }
-
-  return $items;
-}
-
-register_activation_hook(__FILE__, 'initAPI' );
+register_activation_hook(__FILE__, 'init' );
 
 ?>

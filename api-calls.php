@@ -4,6 +4,7 @@
 */
 
 require_once(dirname(__FILE__).'/helper-functions.php');
+require_once(dirname(__FILE__).'/database-operations.php');
     
 function prepareUserRegistration($user){
        
@@ -11,8 +12,7 @@ function prepareUserRegistration($user){
     if(isUserOnTLMS($user->user_email)){
         // If user is already registered on TalentLMS, no registration is necessary.
         // Obviously...
-        error_log("User is already on TLMS - let's move him there");
-        redirectToTLMS($user->user_email);
+        
     } else {
         // If user is not registered on talentLMS, setup user data and register him
         registerUserAPICall($user);
@@ -50,6 +50,11 @@ function registerUserAPICall($user){
         error_log($e->getHttpStatus());
         // Do stuff that figures shit out
     }
+
+    // TO BE DONE: 
+    /* if(addUserToDatabase($userEmail, $userPassword) == false){
+        // Handle error
+    } */
 
 }
 

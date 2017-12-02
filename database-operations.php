@@ -1,15 +1,23 @@
 <?php 
 
+/**
+ * This file provides all database related functionality
+ */
+
 global $tLMS_db_version;
 global $wpdb;
 $table_prefix = 'sfaTLMS';
 $tLMS_db_version = '1.0';
 
+
+/**
+ * Triggers the creation of the database extension if it does not yet exist
+ */
 function initDatabase(){
     $table_prefix = 'sfaTLMS';
     global $wpdb;
     $table_name = $wpdb->prefix . $table_prefix;
-    if ($wpdb->get_var("SHOW TABLES LIKE '$table_name'") != $table_name){
+    if ($wpdb->get_var("SHOW TABLES LIKE '$table_name'") != $table_name){ // Check if database already exists
         createDatabase();
     }
 }
@@ -63,9 +71,13 @@ function addUserToDatabase($email, $password){
  * Returns an empty string if user was not found. 
  */
 function getTLMSPasswordByMail($email){
+    global $wpdb;
+    $table_prefix = 'sfaTLMS';
+    $table_name = $wpdb->prefix . $table_prefix;
+
     $password = "";
 
-    // How to get?
+    $password = $wpdb->get_var($wpdb->prepare("SELECT passwrd FROM $wpdb->$table_name WHERE mail = %s", $email));
 
     return $password;
 }
@@ -81,7 +93,7 @@ function isUserInDatabase($email){
     $table_prefix = 'sfaTLMS';
     $table_name = $wpdb->prefix . $table_prefix;
 
-    $count = $wpdb->get_var($wpdb->prepare("SELECT COUNT(*) FROM $wpdb->$table_name WHERE mail = %s", $email));
+    $count = $wpdb->get_var($wpdb->prepare("SELECT COUNT(*) FROM %s WHERE mail = %s",  $wpdb->$table_name, $email));
 
     if($count > 0){
         $isInDatabase = TRUE;

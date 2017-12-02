@@ -77,22 +77,4 @@ function isUserInDatabase($email){
     return $isInDatabase;
 }
 
-
-/**
- * Updates what?
- */
-/* function updateDB($talentLMSUser){
-    global $wpdb;
-    $table_name = $wpdb->prefix . $table_prefix;
-
-    if (is_array($talentLMSUser)) {
-        foreach ($talentLMSUser as $User) {
-            $wpdb->insert(
-                $table_name,
-                array('mail' => $user['email'])
-            )
-        }
-    }
-} */
-
 ?>

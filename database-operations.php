@@ -65,7 +65,14 @@ function getTLMSPasswordByMail($email){
 function isUserInDatabase($email){
     $isInDatabase = FALSE;
 
-    // How to check?
+    $mysqli = new mysqli(SERVER, DBUSER, DBPASS, DATABASE);
+    $result = $mysqli->query("SELECT id FROM mytable WHERE city = 'c7'");
+    if($result->num_rows == 0) {
+         // row not found, do stuff...
+    } else {
+        // do other stuff...
+    }
+    $mysqli->close();
 
     return $isInDatabase;
 }

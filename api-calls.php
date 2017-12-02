@@ -51,9 +51,10 @@ function registerUserAPICall($user){
         // Do stuff that figures shit out
     }
 
-    if(addUserToDatabase($userEmail, $userPassword) == false){
+    // TO BE DONE: 
+    /* if(addUserToDatabase($userEmail, $userPassword) == false){
         // Handle error
-    }
+    } */
 
 }
 

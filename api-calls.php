@@ -39,8 +39,6 @@ function registerUserAPICall($user){
             'login' => $userLoginName, 
             'password' => $userPassword));
 
-        
-            
         /* $tlms_userID = $return['id'];
         $tlms_login = $return['login'];
         $tlms_first_name = $return['first_name'];
@@ -56,10 +54,10 @@ function registerUserAPICall($user){
 }
 
 // Redirects to TalentLMS, logging in with the given user ID
-function redirectToTLMS($userID){
+function redirectToTLMS($userEmail){
 
     // call TLMS API
-    $returnSet = TalentLMS_User::retrieve($userID);
+    $returnSet = TalentLMS_User::retrieve(array('email' => $userEmail));
 
     // Retrieve login key from return JSON
     $loginKey = $returnSet['login_key'];

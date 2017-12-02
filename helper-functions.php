@@ -37,7 +37,6 @@ function isUserOnTLMS($userEmail){
     }
     
     // Alternatively: Check Wordpress database extension for the respective entry.
-
     return $userIsOnTLMS;
 }
 

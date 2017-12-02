@@ -62,9 +62,6 @@ function updateDB($talentLMSUser){
     }
 }
 
-
-
-
 // User registration hook
 function registerUserOnTLMS($user_login, $user){
     // Register user in TalentLMS

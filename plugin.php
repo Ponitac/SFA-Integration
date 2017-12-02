@@ -32,11 +32,13 @@ require_once(dirname(__FILE__).'/sfa-options.php'); // Require options menu for 
 function registerUserOnTLMS($user_login, $user){
     // Register user in TalentLMS
     // Use functions of api-calls.php
-    if (get_option( 'sfa_domain') && get_option( 'sfa_key')) {
-        TalentLMS::setApiKey(get_option( 'sfa_key'));
-        TalentLMS::setDomain(get_option( 'sfa_domain'));
+    //if (get_option( 'sfa_domain') && get_option( 'sfa_key')) {
+        //TalentLMS::setApiKey(get_option( 'sfa_key'));
+        //TalentLMS::setDomain(get_option( 'sfa_domain'));
+        TalentLMS::setApiKey('YIKUQdyDwdzRYuy5pxJB2uAIQCMqTq');
+        TalentLMS::setDomain('courses.socialfinanceacademy.org');
         prepareUserRegistration($user);
-    }    
+    //}    
 }
 add_action('wp_login', 'registerUserOnTLMS', 10, 2);
 
@@ -50,8 +52,8 @@ function init(){
     
     try{
         //Initiate API    
-        TalentLMS::setApiKey($configuration[key]);
-        TalentLMS::setDomain($configuration[domain]);
+        TalentLMS::setApiKey('YIKUQdyDwdzRYuy5pxJB2uAIQCMqTq');
+        TalentLMS::setDomain('courses.socialfinanceacademy.org');
     }
     catch(Exception $e){
         echo $e->getMessage();

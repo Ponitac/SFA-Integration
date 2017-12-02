@@ -5,17 +5,19 @@
  * @package WordPress
  * @subpackage Social Finance Academy
  */
-echo ("Is this real life?");
-require_once(dirname(__FILE__).'/TalentLMSLib/lib/TalentLMS.php'); // Require TLMS Library
-
 try{
+    header("Cache-Control: no-cache, must-revalidate");
+    header("Expires: Mon, 26 Jul 1997 05:00:00 GMT");
+    //header("Content-Type: application/xml; charset=utf-8");
+
     //Initiate API    
     TalentLMS::setApiKey('YIKUQdyDwdzRYuy5pxJB2uAIQCMqTq');
     TalentLMS::setDomain('courses.socialfinanceacademy.org');
 
-    $userEmail = wp_get_current_user()->user_email;//"matt.ramin@gmail.com";
+    $userEmail = wp_get_current_user()->user_email;
     error_log($userEmail);
     $returnSet = TalentLMS_User::retrieve(array('email' => $userEmail));
+    
     // Retrieve login key from return JSON
     $loginKey = $returnSet['login_key'];
     error_log($loginKey);
@@ -26,8 +28,9 @@ try{
     //$returnUrl = "https://beta.social-finance-academy.org/";
 
     // Redirect user to TLMS
-    //redirect($loginKey);
+    // redirect($loginKey);
 } catch (Exception $e){
     error_log($e->getMessage());
     error_log($e->getHttpStatus());
+    echo "You need to be loggin in in order to access the online courses of Social Financ Academy. Please go back and log in.";
 }

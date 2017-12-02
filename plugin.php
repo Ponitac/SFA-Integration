@@ -86,7 +86,7 @@ function init(){
     $configuration = parse_ini_file('config.ini'); // Read config
     
     try{
-        //Initiate API            
+        //Initiate API    
         TalentLMS::setApiKey($configuration[key]);
         TalentLMS::setDomain($configuration[domain]);
     }
@@ -109,8 +109,6 @@ function deinstallPlugin(){
 }
 
  function initAPI(){
-
-    apply_filters( 'wp_nav_menu_items', 10 );
 
     $configuration = parse_ini_file('config.ini');
 

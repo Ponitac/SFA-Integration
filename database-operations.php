@@ -77,7 +77,7 @@ function getTLMSPasswordByMail($email){
 
     $password = "";
 
-    $password = $wpdb->get_var($wpdb->prepare("SELECT passwrd FROM $wpdb->$table_name WHERE mail = %s", $email));
+    $password = $wpdb->get_var($wpdb->prepare("SELECT passwrd FROM %s WHERE mail = %s", $wpdb->$table_name, $email));
 
     return $password;
 }

@@ -1,8 +1,13 @@
 <?php
+/**
+ * This file provides useful functions to be used throughout the plugin.
+ */
 
-
-/*  Generates a password to be used for registering a new user on TalentLMS
-
+/**
+ * Generates a random 8 character password with no special characters
+ * 
+ * This is currently used to create a random password that may be used for registering
+ * new users on TalentLMS.
  */
 function generateTLMSPassword(){
     $newPassword = "";
@@ -14,12 +19,36 @@ function generateTLMSPassword(){
 }
 
 /**
- * Checks if the user is already registered on TalentLMS 
+ * Returns the TalentLMS API key from the sfa options
+ */
+function getAPIKey() {
+    $sfaoptions = get_option( 'sfa_tLMS_options');
+    if(!empty($sfaoptions)){
+        $key = $sfaoptions['sfa_key'];
+    }
+    return $key;
+}
+
+/**
+ * Returns the TalentLMS domain from the sfa options
+ */
+function getDomain() {
+    $sfaoptions = get_option( 'sfa_tLMS_options');
+    if(!empty($sfaoptions)){
+        $domain = $sfaoptions['sfa_domain'];
+    }
+    return $domain;
+}
+
+/**
+ * Checks if the user is already registered on TalentLMS via an API call
  * Returns true if the user is already registered
  * Returns false if the user is not yet registered
- * TODO: Rewrite so the check runs via the internal database 
+ * 
+ * This function is currently NOT in use since we implemented a wordpress database extension that 
+ * keeps track of who is already registered 
 */
-/* function isUserOnTLMS($userEmail){
+function isUserOnTLMS($userEmail){
     $userIsOnTLMS = FALSE;
 
     try{
@@ -33,25 +62,7 @@ function generateTLMSPassword(){
         echo $e->getMessage();
     }
     
-    // Alternatively: Check Wordpress database extension for the respective entry.
     return $userIsOnTLMS;
-} */
-
-
-function getAPIKey() {
-    $sfaoptions = get_option( 'sfa_tLMS_options');
-    if(!empty($sfaoptions)){
-        $key = $sfaoptions['sfa_key'];
-    }
-    return $key;
-}
-
-function getDomain() {
-    $sfaoptions = get_option( 'sfa_tLMS_options');
-    if(!empty($sfaoptions)){
-        $domain = $sfaoptions['sfa_domain'];
-    }
-    return $domain;
 }
 
 

@@ -96,7 +96,7 @@ class tLMSOptions
     {
         $new_input = array();
         if( isset( $input['sfa_domain'] ) )
-            $new_input['sfa_domain'] = absint( $input['sfa_domain'] );
+            $new_input['sfa_domain'] = sanitize_text_field(( $input['sfa_domain'] );
 
         if( isset( $input['sfa_key'] ) )
             $new_input['sfa_key'] = sanitize_text_field( $input['sfa_key'] );

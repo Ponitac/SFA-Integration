@@ -66,10 +66,14 @@ function updateDB($talentLMSUser){
 function registerUserOnTLMS($user_login, $user){
     // Register user in TalentLMS
     // Use functions of api-calls.php
-    if (get_option( 'sfa_domain') && get_option( 'sfa_key')) {
-        TalentLMS::setApiKey(get_option( 'sfa_key'));
+    error_log(get_option('sfa_domain'));
+    error_log(get_option( 'sfa_key'));
+    if (get_option( 'sfa_domain')) {
         TalentLMS::setDomain(get_option( 'sfa_domain'));
-        prepareUserRegistration($user);
+        TalentLMS::setApiKey(get_option( 'sfa_key'));
+        prepareUserRegistration($user);    
+    }else{
+        error_log("Error in API Set");
     }
 
     
@@ -110,6 +114,9 @@ function deinstallPlugin(){
 
  function initAPI(){
 
+    	
+    add_filter( 'wp_get_nav_menu_items', 'custom_nav_menu_items2', 20, 2 );
+
     $configuration = parse_ini_file('config.ini');
 
     ini_set('display_errors', false);
@@ -136,6 +143,18 @@ function deinstallPlugin(){
 }    
 
 
+function custom_nav_menu_items2( $items, $menu ) {
+  if ( $menu->slug == 'main_menu' ) {
+    $top = _custom_nav_menu_item( 'Top level', '/some-url', 100 );
+
+    $items[] = $top;
+    $items[] = _custom_nav_menu_item( 'First Child', '/some-url', 101, $top->ID );
+    $items[] = _custom_nav_menu_item( 'Third Child', '/some-url', 103, $top->ID );
+    $items[] = _custom_nav_menu_item( 'Second Child', '/some-url', 102, $top->ID );
+  }
+
+  return $items;
+}
 
 register_activation_hook(__FILE__, 'initAPI' );
 

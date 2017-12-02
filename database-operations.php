@@ -81,7 +81,7 @@ function isUserInDatabase($email){
 /**
  * Updates what?
  */
-function updateDB($talentLMSUser){
+/* function updateDB($talentLMSUser){
     global $wpdb;
     $table_name = $wpdb->prefix . $table_prefix;
 
@@ -93,6 +93,6 @@ function updateDB($talentLMSUser){
             )
         }
     }
-}
+} */
 
 ?>

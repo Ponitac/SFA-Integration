@@ -44,5 +44,21 @@ function redirect($url){
     exit;
 }
 
+function getAPIKey() {
+    $sfaoptions = get_option( 'sfa_tLMS_options');
+    if(!empty($sfaoptions)){
+        $key = $sfaoptions['sfa_key'];
+    }
+    return key;
+}
+
+function getDomain() {
+    $sfaoptions = get_option( 'sfa_tLMS_options');
+    if(!empty($sfaoptions)){
+        $domain = $sfaoptions['sfa_domain'];
+    }
+    return $domain;
+}
+
 
 ?>

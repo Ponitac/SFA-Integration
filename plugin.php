@@ -35,8 +35,8 @@ function registerUserOnTLMS($user_login, $user){
     //if (get_option( 'sfa_domain') && get_option( 'sfa_key')) {
         //TalentLMS::setApiKey(get_option( 'sfa_key'));
         //TalentLMS::setDomain(get_option( 'sfa_domain'));
-        TalentLMS::setApiKey('YIKUQdyDwdzRYuy5pxJB2uAIQCMqTq');
-        TalentLMS::setDomain('courses.socialfinanceacademy.org');
+        TalentLMS::setApiKey(getAPIKEY());
+        TalentLMS::setDomain(getDomain());
         prepareUserRegistration($user);
     //}    
 }
@@ -52,8 +52,8 @@ function init(){
     
     try{
         //Initiate API    
-        TalentLMS::setApiKey('YIKUQdyDwdzRYuy5pxJB2uAIQCMqTq');
-        TalentLMS::setDomain('courses.socialfinanceacademy.org');
+        TalentLMS::setApiKey(getAPIKEY());
+        TalentLMS::setDomain(getDomain());
     }
     catch(Exception $e){
         echo $e->getMessage();

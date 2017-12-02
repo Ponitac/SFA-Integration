@@ -23,44 +23,10 @@ You should have received a copy of the GNU General Public License
 along with sfa-TalentLMS-Integration. If not, see https://www.gnu.org/licenses/gpl-2.0.html.
 */
 
-
+header('Content-Type: text/html; charset=utf-8');
 require_once(dirname(__FILE__).'/api-calls.php'); // Require API call library
 require_once(dirname(__FILE__).'/TalentLMSLib/lib/TalentLMS.php'); // Require TLMS Library
 require_once(dirname(__FILE__).'/sfa-options.php'); // Require options menu for setting api key / domain
-
-/* global $tLMS_db_version;
-$tLMS_db_version = '1.0';
-
-function createDatabase() {
-    global $wpdb;
-    global $tLMS_db_version;
-
-    $table_name = $wpdb->prefix . 'sfatLMS';
-
-    $charset_collate = $wpdb->get_charset_collate();
-    $sql = "CREATE  TABLE $table_name (id mediumint(9) NOT NULL AUTO_INCREMENT,
-    mail text NOT NULL,
-    PRIMARY KEY (id)
-    ) $charset_collate;";
-
-    require_once( ABSPATH . 'wp-admin/includes/upgrade.php');
-    dbDelta( $sql );
-    add_option( 'tLMS_db_version', $tLMS_db_version );
-}
-
-function updateDB($talentLMSUser){
-    global $wpdb;
-    $table_name = $wpdb->prefix . 'sfatLMS';
-
-    if (is_array($talentLMSUser)) {
-        foreach ($talentLMSUser as $User) {
-            $wpdb->insert(
-                $table_name,
-                array('mail' => $user['email'])
-            )
-        }
-    }
-} */
 
 // User registration hook
 function registerUserOnTLMS($user_login, $user){
@@ -76,11 +42,10 @@ add_action('wp_login', 'registerUserOnTLMS', 10, 2);
 
 // Activation hook
 function init(){
-    // Read options
+    // TODO: Read options
     header('Content-Type: text/html; charset=utf-8');
     
-    // ini_set('display_errors', false);
-    
+    // ini_set('display_errors', false);    
     $configuration = parse_ini_file('config.ini'); // Read config
     
     try{
@@ -106,35 +71,6 @@ function deinstallPlugin(){
     // Delete all the things
 }
 
- function initAPI(){
-
-    $configuration = parse_ini_file('config.ini');
-
-    ini_set('display_errors', false);
-
-    header('Content-Type: text/html; charset=utf-8');
-
-    try{
-
-        //Initiate API
-        TalentLMS::setApiKey($configuration[key]);
-        TalentLMS::setDomain($configuration[domain]);
-
-        //Get Users
-        $users = TalentLMS_User::all();
-
-        foreach($users as $user){
-            if ($user['first_name']=='Matteo')  error_log($user['first_name'], 0);
-        }
-
-    }
-    catch(Exception $e){
-        echo $e->getMessage();
-    }
-}    
-
-
-
-register_activation_hook(__FILE__, 'initAPI' );
+register_activation_hook(__FILE__, 'init' );
 
 ?>

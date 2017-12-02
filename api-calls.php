@@ -11,8 +11,7 @@ function prepareUserRegistration($user){
     if(isUserOnTLMS($user->user_email)){
         // If user is already registered on TalentLMS, no registration is necessary.
         // Obviously...
-        error_log("User is already on TLMS - let's move him there");
-        redirectToTLMS($user->user_email);
+        
     } else {
         // If user is not registered on talentLMS, setup user data and register him
         registerUserAPICall($user);

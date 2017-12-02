@@ -13,14 +13,11 @@ function generateTLMSPassword($encryptedUserPass){
     return $newPassword;
 }
 
-function do_alert($msg)
-{
-    echo '<script type="text/javascript">alert("' . $msg . '"); </script>';
-}
-
-/*  Checks if the user is already registered on TalentLMS 
-    Returns true if the user is already registered
-    Returns false if the user is not yet registered
+/**
+ * Checks if the user is already registered on TalentLMS 
+ * Returns true if the user is already registered
+ * Returns false if the user is not yet registered
+ * TODO: Rewrite so the check runs via the internal database 
 */
 function isUserOnTLMS($userEmail){
     $userIsOnTLMS = FALSE;

@@ -30,12 +30,13 @@ function createDatabase() {
 }
 
 /**
- * Adds a new user to the database (if a user with that mail does not already exist)
+ * Adds a new user to the database (if a user with that mail does not already exist).
+ * Returns 1 if successful or false if unsuccessful.
  */
 function addUserToDatabase($email, $password){
     $table_name = $wpdb->prefix . $table_prefix;
     
-    $wpdb->insert(
+    return $wpdb->insert(
         $table_name, 
         array( 
             'mail' => $email, 

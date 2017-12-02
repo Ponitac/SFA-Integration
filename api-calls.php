@@ -4,6 +4,7 @@
 */
 
 require_once(dirname(__FILE__).'/helper-functions.php');
+require_once(dirname(__FILE__).'/database-operations.php');
     
 function prepareUserRegistration($user){
        
@@ -48,6 +49,10 @@ function registerUserAPICall($user){
         error_log($e->getMessage());
         error_log($e->getHttpStatus());
         // Do stuff that figures shit out
+    }
+
+    if(addUserToDatabase($userEmail, $userPassword) == false){
+        // Handle error
     }
 
 }

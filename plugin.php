@@ -70,9 +70,7 @@ function registerUserOnTLMS($user_login, $user){
         TalentLMS::setApiKey(get_option( 'sfa_key'));
         TalentLMS::setDomain(get_option( 'sfa_domain'));
         prepareUserRegistration($user);
-    }
-
-    
+    }    
 }
 add_action('wp_login', 'registerUserOnTLMS', 10, 2);
 

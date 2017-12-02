@@ -30,15 +30,9 @@ require_once(dirname(__FILE__).'/sfa-options.php'); // Require options menu for 
 
 // User registration hook
 function registerUserOnTLMS($user_login, $user){
-    // Register user in TalentLMS
-    // Use functions of api-calls.php
-    //if (get_option( 'sfa_domain') && get_option( 'sfa_key')) {
-        //TalentLMS::setApiKey(get_option( 'sfa_key'));
-        //TalentLMS::setDomain(get_option( 'sfa_domain'));
         TalentLMS::setApiKey(getAPIKEY());
         TalentLMS::setDomain(getDomain());
         prepareUserRegistration($user);
-    //}    
 }
 add_action('wp_login', 'registerUserOnTLMS', 10, 2);
 
@@ -46,9 +40,7 @@ add_action('wp_login', 'registerUserOnTLMS', 10, 2);
 function init(){
     // TODO: Read options
     header('Content-Type: text/html; charset=utf-8');
-    
-    // ini_set('display_errors', false);    
-    $configuration = parse_ini_file('config.ini'); // Read config
+    initDatabase();
     
     try{
         //Initiate API    
@@ -58,8 +50,6 @@ function init(){
     catch(Exception $e){
         echo $e->getMessage();
     }
-
-    // Init Button 'go to TalentLMS'
     
 }
 

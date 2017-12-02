@@ -4,7 +4,7 @@
 /*  Generates a password to be used for registering a new user on TalentLMS
 
  */
-function generateTLMSPassword($encryptedUserPass){
+function generateTLMSPassword(){
     $newPassword = "";
     
     // Generate a freaking password lmao
@@ -19,7 +19,7 @@ function generateTLMSPassword($encryptedUserPass){
  * Returns false if the user is not yet registered
  * TODO: Rewrite so the check runs via the internal database 
 */
-function isUserOnTLMS($userEmail){
+/* function isUserOnTLMS($userEmail){
     $userIsOnTLMS = FALSE;
 
     try{
@@ -35,21 +35,15 @@ function isUserOnTLMS($userEmail){
     
     // Alternatively: Check Wordpress database extension for the respective entry.
     return $userIsOnTLMS;
-}
+} */
 
-// Redirects the user to the given URL
-function redirect($url){
-    
-    header("location:$url");
-    exit;
-}
 
 function getAPIKey() {
     $sfaoptions = get_option( 'sfa_tLMS_options');
     if(!empty($sfaoptions)){
         $key = $sfaoptions['sfa_key'];
     }
-    return key;
+    return $key;
 }
 
 function getDomain() {

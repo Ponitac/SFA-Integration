@@ -7,28 +7,30 @@ require_once(dirname(__FILE__).'/helper-functions.php');
 require_once(dirname(__FILE__).'/database-operations.php');
     
 function prepareUserRegistration($user){
-       
-    // Check if user is already registered on TalentLMS 
-    if(isUserOnTLMS($user->user_email)){
-        // If user is already registered on TalentLMS, no registration is necessary.
-        // Obviously...
-        
-    } else {
-        // If user is not registered on talentLMS, setup user data and register him
-        registerUserAPICall($user);
-    }
-}
 
-// Takes in a user_info object and registers that user on TalentLMS
-function registerUserAPICall($user){
-    
-    // Pull necessary user data from user_info object
     $userFirstName = $user->first_name;
     $userLastName = $user->last_name;
     $userEmail = $user->user_email;
     $userLoginName = $user->user_login;
 
-    $userPassword = generateTLMSPassword($user->user_pass); // Generate the password to be used on the TLMS side
+    $userPassword = generateTLMSPassword(); // Generate the password to be used on the TLMS side
+       
+    // Check if user is already registered on TalentLMS 
+    if(isUserInDatabase($userEmail)){
+        // If user is already registered on TalentLMS, no registration is necessary.
+        // Obviously...
+        
+    } else {
+        // If user is not registered on talentLMS, setup user data and register him
+           // Pull necessary user data from user_info object
+        if(registerUserAPICall($userFirstName,$userLastName,$userEmail,$userLoginName,$userPassword)){
+                addUserToDatabase($userEmail,$userPassword);
+        }
+    }
+}
+
+// Takes in a user_info object and registers that user on TalentLMS
+function registerUserAPICall($userFirstName,$userLastName,$userEmail,$userLoginName,$userPassword){
     
     try{
         $return = TalentLMS_User::signup(array(
@@ -38,17 +40,13 @@ function registerUserAPICall($user){
             'login' => $userLoginName, 
             'password' => $userPassword));
 
-        /* $tlms_userID = $return['id'];
-        $tlms_login = $return['login'];
-        $tlms_first_name = $return['first_name'];
-        $tlms_last_name = $return['last_name'];
-        $tlms_email = $return['email'];
-        $tlms_loginKey = $return['loginKey']; */
+        return true;
 
     } catch (Exception $e){
         error_log($e->getMessage());
         error_log($e->getHttpStatus());
-        // Do stuff that figures shit out
+
+        return false;
     }
 
     // TO BE DONE: 

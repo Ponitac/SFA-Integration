@@ -1,8 +1,18 @@
 <?php 
 
 global $tLMS_db_version;
+global $wpdb;
 $table_prefix = 'sfaTLMS';
 $tLMS_db_version = '1.0';
+
+function initDatabase(){
+    $table_prefix = 'sfaTLMS';
+    global $wpdb;
+    $table_name = $wpdb->prefix . $table_prefix;
+    if ($wpdb->get_var("SHOW TABLES LIKE '$table_name'") != $table_name){
+        createDatabase();
+    }
+}
 
 /**
  * Creates a database with the prefix 'sfatLMS' and three fields:
@@ -12,7 +22,8 @@ $tLMS_db_version = '1.0';
  */
 function createDatabase() {
     global $wpdb;
-    global $tLMS_db_version;
+    $table_prefix = 'sfaTLMS';
+    $tLMS_db_version = '1.0';
 
     $table_name = $wpdb->prefix . $table_prefix;
 
@@ -34,6 +45,8 @@ function createDatabase() {
  * Returns 1 if successful or false if unsuccessful.
  */
 function addUserToDatabase($email, $password){
+    global $wpdb;
+    $table_prefix = 'sfaTLMS';
     $table_name = $wpdb->prefix . $table_prefix;
     
     return $wpdb->insert(
@@ -64,16 +77,15 @@ function getTLMSPasswordByMail($email){
  */
 function isUserInDatabase($email){
     $isInDatabase = FALSE;
+    global $wpdb;
+    $table_prefix = 'sfaTLMS';
+    $table_name = $wpdb->prefix . $table_prefix;
 
-    $mysqli = new mysqli(SERVER, DBUSER, DBPASS, DATABASE);
-    $result = $mysqli->query("SELECT id FROM mytable WHERE city = 'c7'");
-    if($result->num_rows == 0) {
-         // row not found, do stuff...
-    } else {
-        // do other stuff...
+    $count = $wpdb->get_var($wpdb->prepare("SELECT COUNT(*) FROM $wpdb->$table_name WHERE mail = %s", $email));
+
+    if($count > 0){
+        $isInDatabase = TRUE;
     }
-    $mysqli->close();
-
     return $isInDatabase;
 }
 

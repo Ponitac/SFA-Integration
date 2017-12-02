@@ -62,15 +62,6 @@ function updateDB($talentLMSUser){
     }
 } */
 
-
-add_filter( 'wp_nav_menu_items', 'your_custom_menu_item', 10, 2 );
-function your_custom_menu_item ( $items, $args ) {
-    if (is_single() && $args->theme_location == 'Footer') {
-        $items .= '<li>Show whatever</li>';
-    }
-    return $items;
-}
-
 // User registration hook
 function registerUserOnTLMS($user_login, $user){
     // Register user in TalentLMS
@@ -119,7 +110,7 @@ function deinstallPlugin(){
 
  function initAPI(){
 
-    apply_filters( 'wp_nav_menu_items', 2, 10 );
+    apply_filters( 'wp_nav_menu_items', 10 );
 
     $configuration = parse_ini_file('config.ini');
 

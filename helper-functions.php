@@ -29,7 +29,7 @@ function isUserOnTLMS($userEmail){
         $response = 
             TalentLMS_User::retrieve(array('email' => $userEmail));
         
-        if(!empty($respone['login_key'])){        
+        if(!empty($response['login_key'])){        
             $userIsOnTLMS = TRUE;
         }
     } catch (Exception $e){
@@ -42,6 +42,7 @@ function isUserOnTLMS($userEmail){
 
 // Redirects the user to the given URL
 function redirect($url){
+    
     header("location:$url");
     exit;
 }

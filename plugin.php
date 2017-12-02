@@ -62,16 +62,15 @@ function init(){
     
 }
 
-// Deactivation hook
-function deactivatePlugin(){
-    // Hide button
-}
-
 // Deinstallation hook
 function deinstallPlugin(){
-    // Delete all the things
+    //Delete Dabase
+    deleteDatabaseforDeinstallation();
+    //Unregister added Options
+    unregister_setting( 'sfa_tLMS_option_group', 'sfa_tLMS_options');
 }
 
-register_activation_hook(__FILE__, 'init' );
+register_activation_hook( __FILE__ , 'init' );
+register_uninstall_hook( __FILE__ , 'deinstallPlugin' );
 
 ?>

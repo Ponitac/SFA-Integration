@@ -104,4 +104,11 @@ function isUserInDatabase($email){
     return $isInDatabase;
 }
 
+function deleteDatabaseforDeinstallation() {
+    global $wpdb;
+    $table_prefix = 'sfaTLMS';
+    $table_name = $wpdb->prefix . $table_prefix;
+    $wpdb->query("DROP TABLE IF EXISTS $table_name");
+}
+
 ?>

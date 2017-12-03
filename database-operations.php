@@ -77,7 +77,8 @@ function getTLMSPasswordByMail($email){
 
     $password = "";
 
-    $password = $wpdb->get_var($wpdb->prepare("SELECT passwrd FROM $wpdb->$table_name WHERE mail = %s", $email));
+    $password = $wpdb->get_var("SELECT passwrd FROM $table_name WHERE mail = '$email'");
+    
 
     return $password;
 }
@@ -93,11 +94,13 @@ function isUserInDatabase($email){
     $table_prefix = 'sfaTLMS';
     $table_name = $wpdb->prefix . $table_prefix;
 
-    $count = $wpdb->get_var($wpdb->prepare("SELECT COUNT(*) FROM %s WHERE mail = %s",  $wpdb->$table_name, $email));
+    // $count = $wpdb->get_var($wpdb->prepare("SELECT COUNT(*) FROM '%s' WHERE mail LIKE '%s'",  $table_name, $email));
+    $count = $wpdb->get_var( "SELECT COUNT(*) FROM $table_name WHERE mail = '$email'" );
 
     if($count > 0){
         $isInDatabase = TRUE;
     }
+
     return $isInDatabase;
 }
 

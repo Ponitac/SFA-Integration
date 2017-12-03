@@ -16,7 +16,7 @@ function prepareUserRegistration($user){
     $userFirstName = $user->first_name;
     $userLastName = $user->last_name;
     $userEmail = $user->user_email;
-    $userLoginName = $user->user_login;
+    
 
     // Generate the password to be used on the TLMS side
     $userPassword = generateTLMSPassword(); 
@@ -31,7 +31,7 @@ function prepareUserRegistration($user){
             $userFirstName, 
             $userLastName, 
             $userEmail, 
-            $userLoginName,
+            $userEmail,
             $userPassword)){ 
                 addUserToDatabase($userEmail, $userPassword); // Adds the user to the wordpress database extension
         }

@@ -62,7 +62,9 @@ function init(){
     
 }
 
-// Deinstallation hook
+/**
+ * Deletes the database extension table and unregisters the options
+ */
 function deinstallPlugin(){
     //Delete Dabase
     deleteDatabaseforDeinstallation();

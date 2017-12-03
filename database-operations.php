@@ -104,6 +104,9 @@ function isUserInDatabase($email){
     return $isInDatabase;
 }
 
+/**
+ * Deletes the sfa-TLMS-Integration database extension table
+ */
 function deleteDatabaseforDeinstallation() {
     global $wpdb;
     $table_prefix = 'sfaTLMS';

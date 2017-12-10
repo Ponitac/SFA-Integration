@@ -67,6 +67,17 @@ function addUserToDatabase($email, $password){
 }
 
 /**
+ * 
+ */
+function editUserInDatabase($old_email, $new_email){
+    $success = false;
+
+    // Do stuff
+
+    return $success;
+}
+
+/**
  * Returns the email and password corresponding to the requested email.
  * Returns an empty string if user was not found. 
  */

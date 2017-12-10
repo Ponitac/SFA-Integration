@@ -61,6 +61,12 @@ function init(){
     }    
 }
 
+function onProfileUpdate( $user_id, $old_user_data ) {
+    prepareProfileUpdate($user_id, $old_user_data);
+}
+add_action( 'profile_update', 'onProfileUpdate', 10, 2 );
+
+
 /**
  * Deletes the database extension table and unregisters the options
  */

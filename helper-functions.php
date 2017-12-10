@@ -65,5 +65,21 @@ function isUserOnTLMS($userEmail){
     return $userIsOnTLMS;
 }
 
+function getTLMSUserIdByMail($userEmail){
+    $TLMSUserId = 0;
+
+    try{
+        $response = TalentLMS_User::retrieve(array('email' => $userEmail));
+        
+        if(!empty($response['login_key'])){      
+            $TLMSUserId = $response['id'];
+        }
+    } catch (Exception $e){
+        echo $e->getMessage();
+    }
+
+    return $TLMSUserId;
+}
+
 
 ?>

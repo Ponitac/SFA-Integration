@@ -88,8 +88,9 @@ function updateUserEmailAPICall($tlms_user_id, $user_email_new){
             // 'password' => '{password}', 
             // 'bio' => '{bio}', 
             // 'timezone' => '{timeZone}', 
-            // 'credits' => '{credits}')
+            // 'credits' => '{credits}'
             )
+        );
     } catch(Exception $e){
         throw $e;
     }

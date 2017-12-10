@@ -67,6 +67,8 @@ function isUserOnTLMS($userEmail){
 
 function getTLMSUserIdByMail($userEmail){
     $TLMSUserId = 0;
+    TalentLMS::setApiKey(getAPIKEY()); // Set the API key according to the options
+    TalentLMS::setDomain(getDomain()); // Set the domain accoding to the options
 
     try{
         $response = TalentLMS_User::retrieve(array('email' => $userEmail));

@@ -58,6 +58,7 @@ function prepareProfileUpdate($user_id, $old_user_data){
         } catch (Exception $e){
             error_log($e->getMessage());
             error_log($e->getHttpStatus());
+            return;
         }
         
         if( editUserInDatabase($previous_mail, $new_mail)){

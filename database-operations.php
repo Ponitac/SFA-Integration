@@ -71,8 +71,11 @@ function addUserToDatabase($email, $password){
  */
 function editUserInDatabase($old_email, $new_email){
     $success = false;
+    global $wpdb;
+    $table_prefix = 'sfaTLMS';
+    $table_name = $wpdb->prefix . $table_prefix;
 
-    // Do stuff
+        $success = $wpdb->update( $table_name, array('mail' => $new_email), array('mail' => $old_email) );
 
     return $success;
 }

@@ -85,6 +85,14 @@ class tLMSOptions
             'sfa-tLMS-settings', 
             'tLMS_section_id'
         );      
+
+        add_settings_field(
+            'sfa_post_id', 
+            'Post ID Redirect', 
+            array( $this, 'sfa_post_id_callback' ), 
+            'sfa-tLMS-settings', 
+            'tLMS_section_id'
+        );      
     }
 
     /**
@@ -100,6 +108,9 @@ class tLMSOptions
 
         if( isset( $input['sfa_key'] ) )
             $new_input['sfa_key'] = sanitize_text_field( $input['sfa_key'] );
+
+        if( isset( $input['sfa_post_id'] ) )
+        $new_input['sfa_post_id'] = sanitize_text_field( $input['sfa_post_id'] );
 
         return $new_input;
     }
@@ -130,6 +141,15 @@ class tLMSOptions
         printf(
             '<input type="text" id="sfa_key" name="sfa_tLMS_options[sfa_key]" value="%s" />',
             isset( $this->options['sfa_key'] ) ? esc_attr( $this->options['sfa_key']) : ''
+        );
+    }
+
+
+    public function sfa_post_id_callback()
+    {
+        printf(
+            '<input type="text" id="sfa_post_id" name="sfa_tLMS_options[sfa_post_id]" value="%s" />',
+            isset( $this->options['sfa_post_id'] ) ? esc_attr( $this->options['sfa_post_id']) : ''
         );
     }
 }

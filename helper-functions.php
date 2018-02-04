@@ -29,6 +29,14 @@ function getAPIKey() {
     return $key;
 }
 
+function getRedirectPostId() {
+    $sfaoptions = get_option( 'sfa_tLMS_options');
+    if(!empty($sfaoptions)){
+        $redirect_post_id = $sfaoptions['sfa_post_id'];
+    }
+    return $redirect_post_id;
+}
+
 /**
  * Returns the TalentLMS domain from the sfa options
  */

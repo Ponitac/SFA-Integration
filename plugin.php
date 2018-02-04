@@ -67,9 +67,12 @@ function onProfileUpdate( $user_id, $old_user_data ) {
 }
 add_action( 'profile_update', 'onProfileUpdate', 10, 2 );
 
-function redirect_via_customized_post(){
-    if ($post->ID == getRedirectPostID){
+function redirect_via_customized_page(){
+    error_log('does this work?');
+    if (is_page( 'redirect-courses' ) ){
+        error_log('Are we getting in here?1');
         try{
+            error_log('Are we getting in here?');
             header("Cache-Control: no-cache, must-revalidate");
             header("Expires: Mon, 26 Jul 1997 05:00:00 GMT");
         
@@ -86,12 +89,10 @@ function redirect_via_customized_post(){
                 'password' => $userPassword, 
                 'logout_redirect' => $logoutRedirect)
             );
-        
-            // 
             
             // Retrieve login key from return JSON
             $loginKey = $returnSet['login_key'];
-            header("Location: ".$loginKey );
+            wp_redirect( $loginKey);
             exit;
         
         } catch (Exception $e){
@@ -102,22 +103,19 @@ function redirect_via_customized_post(){
         
                 // Retrieve login key from return JSON
                 $loginKey = $returnSet['login_key'];
-                header("Location: ".$loginKey );
+                wp_redirect( $loginKey);
                 exit;
             } catch (Exception $e2){
                 error_log($e->getMessage());
                 error_log($e->getHttpStatus());
                 error_log($e2->getMessage());
                 error_log($e2->getHttpStatus());
-                echo "You need to be signed in to Social Finance Academy in order to access the online courses of Social Finance Academy. Please go back and log in.";
-            }
+            } 
+        }
     }
 }
+add_action( 'template_redirect', 'redirect_via_customized_page' );
 
-
-
-
-add_filter( 'post_link', 'redirect_via_customized_post', 10, 3 );
 
 
 /**

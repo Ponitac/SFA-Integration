@@ -29,7 +29,7 @@ function getAPIKey() {
     return $key;
 }
 
-function getRedirectPostId() {
+function getRedirectPage() {
     $sfaoptions = get_option( 'sfa_tLMS_options');
     if(!empty($sfaoptions)){
         $redirect_post_id = $sfaoptions['sfa_post_id'];

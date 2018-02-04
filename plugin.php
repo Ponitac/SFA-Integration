@@ -69,7 +69,7 @@ add_action( 'profile_update', 'onProfileUpdate', 10, 2 );
 
 function redirect_via_customized_page(){
     error_log('does this work?');
-    if (is_page( 'redirect-courses' ) ){
+    if (is_page( getRedirectPage() ) ){
         error_log('Are we getting in here?1');
         try{
             error_log('Are we getting in here?');

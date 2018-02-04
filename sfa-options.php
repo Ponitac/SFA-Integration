@@ -88,7 +88,7 @@ class tLMSOptions
 
         add_settings_field(
             'sfa_post_id', 
-            'Post ID Redirect', 
+            'Page slug for Redirect', 
             array( $this, 'sfa_post_id_callback' ), 
             'sfa-tLMS-settings', 
             'tLMS_section_id'
